@@ -40,7 +40,10 @@ public class Board extends JPanel {
             case 'F' -> boardArray[rank - 1][5];
             case 'G' -> boardArray[rank - 1][6];
             case 'H' -> boardArray[rank - 1][7];
-            default -> boardArray[-1][-1];
+            default -> {
+//                boardArray[-1][-1];
+                throw new ArrayIndexOutOfBoundsException("Invalid FEN! Details -> File: " + file + ", Rank: " + rank);
+            }
         };
     }
 }

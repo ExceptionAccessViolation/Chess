@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class Chess {
     public static Square[][] boardArray = new Square[8][8];
-    public static ArrayList<Piece> pieceList = new ArrayList<>();
     public static Board board;
+    public static final String STARTING_POSITION = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 
     public static Player white;
     public static Player black;
@@ -29,20 +29,22 @@ public class Chess {
 
         board = new Board(boardArray);
 
-        Piece[] pieces = Utils.decodeFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR").toArray(new Piece[0]);
-        ArrayList<Piece> whitePieces = new ArrayList<>();
-        ArrayList<Piece> blackPieces = new ArrayList<>();
+        {
+            Piece[] pieces = Utils.decodeFen(STARTING_POSITION).toArray(new Piece[0]);
+            ArrayList<Piece> whitePieces = new ArrayList<>();
+            ArrayList<Piece> blackPieces = new ArrayList<>();
 
-        for(Piece p : pieces) {
-            if (p.getPlayerEnum() == PlayerEnum.WHITE) {
-                whitePieces.add(p);
-            } else {
-                blackPieces.add(p);
+            for (Piece p : pieces) {
+                if (p.getPlayerEnum() == PlayerEnum.WHITE) {
+                    whitePieces.add(p);
+                } else {
+                    blackPieces.add(p);
+                }
             }
-        }
 
-        white = new Player(PlayerEnum.WHITE, whitePieces);
-        black = new Player(PlayerEnum.BLACK, blackPieces);
+            white = new Player(PlayerEnum.WHITE, whitePieces);
+            black = new Player(PlayerEnum.BLACK, blackPieces);
+        }
 
         new Window();
 

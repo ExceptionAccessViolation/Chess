@@ -12,9 +12,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class PlayerInfoPanel extends JPanel {
-    Image test = new ImageIcon(Chess.white.getPieces().getFirst().white).getImage();
+    Image test = Chess.white.getPieces().getFirst().white;
+    ArrayList<Piece> capturedPieces;
+    PlayerEnum playerEnum;
 
     PlayerInfoPanel(PlayerEnum playerEnum) {
+        this.playerEnum = playerEnum;
+
         this.setLayout(null);
 
         Border border = BorderFactory.createLineBorder(Color.CYAN, 2, true);
@@ -25,7 +29,7 @@ public class PlayerInfoPanel extends JPanel {
         int material = player.getMaterial();
         int opponentMaterial = opponent.getMaterial();
 
-        ArrayList<Piece> capturedPieces = opponent.getCapturedPieces();
+        capturedPieces = opponent.getCapturedPieces();
 
         this.setBorder(border);
         this.setVisible(true);
@@ -39,8 +43,6 @@ public class PlayerInfoPanel extends JPanel {
         g2D.drawImage(test, 10, 10, 60, 60, null);
         g2D.drawImage(test, 20, 10, 60, 60, null);
         g2D.drawImage(test, 30, 10, 60, 60, null);
-
-
     }
 
     private int[] countPieces(ArrayList<Piece> pieces) {

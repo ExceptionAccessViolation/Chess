@@ -69,27 +69,26 @@ public abstract class Utils {
         int rank = 8;
         char file = 'A';
 
-        for(int i = 0; i < fen.length(); i++) {
+        for (int i = 0; i < fen.length(); i++) {
             char c = fen.charAt(i);
 
             if (Character.isLetter(c)) {
                 PlayerEnum player = Character.isUpperCase(c) ? PlayerEnum.WHITE : PlayerEnum.BLACK;
 
-                Piece piece = switch(Character.toLowerCase(c)) {
-                    case 'b' -> new Bishop(player, Chess.board.getSquare(file, rank + emptySquares));
-                    case 'k' -> new King(player, Chess.board.getSquare(file, rank + emptySquares));
-                    case 'n' -> new Knight(player, Chess.board.getSquare(file, rank + emptySquares));
-                    case 'p' -> new Pawn(player, Chess.board.getSquare(file, rank + emptySquares));
-                    case 'q' -> new Queen(player, Chess.board.getSquare(file, rank + emptySquares));
-                    case 'r' -> new Rook(player, Chess.board.getSquare(file, rank + emptySquares));
+                Piece piece = switch (Character.toLowerCase(c)) {
+                    case 'b' -> new Bishop(player, Chess.board.getSquare((char) (file + emptySquares), rank));
+                    case 'k' -> new King(player, Chess.board.getSquare((char) (file + emptySquares), rank));
+                    case 'n' -> new Knight(player, Chess.board.getSquare((char) (file + emptySquares), rank));
+                    case 'p' -> new Pawn(player, Chess.board.getSquare((char) (file + emptySquares), rank));
+                    case 'q' -> new Queen(player, Chess.board.getSquare((char) (file + emptySquares), rank));
+                    case 'r' -> new Rook(player, Chess.board.getSquare((char) (file + emptySquares), rank));
                     default -> throw new IllegalArgumentException("Character: " + c);
                 };
 
                 pieces.add(piece);
                 file++;
             } else if (Character.isDigit(c)) {
-                ++emptySquares;
-                file++;
+                emptySquares += (c - '0'); // Subtracting the ASCII value of 0 from c, thus converting it to the raw digit
             } else if (c == '/') {
                 emptySquares = 0;
                 file = 'A';
