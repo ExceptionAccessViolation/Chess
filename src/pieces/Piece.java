@@ -30,6 +30,7 @@ public abstract class Piece {
 
     public Piece(PlayerEnum player, Square square) {
         Chess.board.getSquare(square.getFile(), square.getRank()).setPiece(this);
+
         this.player = player;
         this.square = square;
     }
@@ -99,7 +100,7 @@ public abstract class Piece {
 
                 if (moving != null) {
                     if (moving.hasPiece() && moving.getPiece().getPlayerEnum() == this.getPlayerEnum())
-                            protectedSquares.add(moving);
+                        protectedSquares.add(moving);
                 } else
                     break;
             }

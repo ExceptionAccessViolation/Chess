@@ -32,27 +32,28 @@ public class King extends Piece {
     public ArrayList<Square> getAvailableSquares() {
         Square initialSquare = this.getSquare();
         ArrayList<Square> availableSquares = new ArrayList<>();
+
         for (Direction d : Direction.values()) {
             Square nearbySquare = initialSquare.getNearbySquare(d, this.getPlayerEnum());
+
             if (nearbySquare != null) {
                 Player opponent = Utils.getPlayerObject(this.getPlayerEnum() == PlayerEnum.WHITE ? PlayerEnum.BLACK : PlayerEnum.WHITE);
-                if (nearbySquare.hasPiece()) {
-                    if (nearbySquare.getPiece().getPlayerEnum() != this.getPlayerEnum()) {
+
+                if (nearbySquare.hasPiece() && nearbySquare.getPiece().getPlayerEnum() != this.getPlayerEnum()) {
                         availableSquares.add(nearbySquare);
                         continue;
-                    }
                 }
+
                 boolean valid = true;
+
                 for (Piece p : opponent.getPieces()) {
                     if (p instanceof Pawn) {
                         if (((Pawn) p).getCapturableSquares().contains(nearbySquare)) {
-//                            System.out.println("Piece type: " + p.getPieceType() + "\nPiece coordinates: " + p.getSquare().coordinates);
                             valid = false;
                             break;
                         }
                     } else if (!(p instanceof King)) {
                         if (p.getAvailableSquares().contains(nearbySquare) || p.getProtectedSquares().contains(nearbySquare)) {
-//                            System.out.println("Piece type: " + p.getPieceType() + "\nPiece coordinates: " + p.getSquare().coordinates);
                             valid = false;
                             break;
                         }
@@ -62,6 +63,7 @@ public class King extends Piece {
                     availableSquares.add(nearbySquare);
             }
         }
+
         return availableSquares;
     }
 

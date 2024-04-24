@@ -20,9 +20,9 @@ public class Pawn extends Piece {
 
     @Override
     public boolean move(Square moveTo) {
-        if (this.getAvailableSquares().contains(moveTo)) {
+        if (this.getAvailableSquares().contains(moveTo))
             return super.move(moveTo);
-        }
+
         return false;
     }
 
@@ -33,17 +33,15 @@ public class Pawn extends Piece {
         PlayerEnum player = this.getPlayerEnum();
 
         // If the pawn is not on the starting rank, it can only move one square
-        final int legalMoves = player == PlayerEnum.WHITE ?
-                (this.getSquare().getRank() == 2 ? 2 : 1) : (this.getSquare().getRank() == 7 ? 2 : 1);
+        final int legalMoves = this.hasMoved() ? 1 : 2;
 
         Square aheadSquare = initialSquare.getNearbySquare(Direction.NORTH, player);
         Square twoAheadSquare = aheadSquare.getNearbySquare(Direction.NORTH, player);
 
         if (!aheadSquare.hasPiece()) {
-            if (legalMoves == 2) {
-                if (!twoAheadSquare.hasPiece())
+            if (legalMoves == 2 && !twoAheadSquare.hasPiece())
                     availableSquares.add(twoAheadSquare);
-            }
+
             availableSquares.add(aheadSquare);
         }
 

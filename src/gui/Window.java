@@ -11,16 +11,16 @@ public class Window extends JFrame {
     public static final int WIDTH = 1000;
     public static final int H_PADDING = WIDTH / 16;
 
-    private final InfoPanel infoPanel = new InfoPanel();
-
     public Window() {
         this.setSize(WIDTH, HEIGHT);
         this.setMinimumSize(new Dimension(600, 600));
         this.setTitle("Chess!");
 
+        InfoPanel infoPanel = new InfoPanel();
+
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {} // There are 20 exceptions so leave as Exception
 
         this.setLocationRelativeTo(null);
         this.setLayout(null);
