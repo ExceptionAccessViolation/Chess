@@ -76,12 +76,12 @@ public abstract class Utils {
                 PlayerEnum player = Character.isUpperCase(c) ? PlayerEnum.WHITE : PlayerEnum.BLACK;
 
                 Piece piece = switch (Character.toLowerCase(c)) {
-                    case 'b' -> new Bishop(player, Chess.board.getSquare((char) (file + emptySquares), rank));
-                    case 'k' -> new King(player, Chess.board.getSquare((char) (file + emptySquares), rank));
-                    case 'n' -> new Knight(player, Chess.board.getSquare((char) (file + emptySquares), rank));
                     case 'p' -> new Pawn(player, Chess.board.getSquare((char) (file + emptySquares), rank));
-                    case 'q' -> new Queen(player, Chess.board.getSquare((char) (file + emptySquares), rank));
+                    case 'n' -> new Knight(player, Chess.board.getSquare((char) (file + emptySquares), rank));
+                    case 'b' -> new Bishop(player, Chess.board.getSquare((char) (file + emptySquares), rank));
                     case 'r' -> new Rook(player, Chess.board.getSquare((char) (file + emptySquares), rank));
+                    case 'q' -> new Queen(player, Chess.board.getSquare((char) (file + emptySquares), rank));
+                    case 'k' -> new King(player, Chess.board.getSquare((char) (file + emptySquares), rank));
                     default -> throw new IllegalArgumentException("Character: " + c);
                 };
 

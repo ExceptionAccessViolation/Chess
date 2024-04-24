@@ -36,11 +36,12 @@ public abstract class Piece {
 
     public boolean move(Square movedTo) {
         if (movedTo.hasPiece()) {
-            if (movedTo.getPiece().getPlayerEnum() != this.getPlayerEnum() && !(movedTo.getPiece() instanceof King)) {
+            if (movedTo.getPiece().getPlayerEnum() != this.getPlayerEnum() && !(movedTo.getPiece() instanceof King))
                 Utils.getPlayerObject(movedTo.getPiece().getPlayerEnum()).deletePiece(movedTo.getPiece());
-            } else
+            else
                 return false;
         }
+
         movedTo.setPiece(this);
         this.square.setPiece(null);
         this.square = movedTo;
@@ -48,6 +49,7 @@ public abstract class Piece {
     }
 
     public ArrayList<Square> getAvailableSquares() {
+        // Get the possible moving directions for the particular piece
         ArrayList<Direction> availableDirections = new ArrayList<>(switch (this) {
             case Pawn ignored -> null;
             case Knight ignored -> null;
@@ -61,14 +63,14 @@ public abstract class Piece {
         ArrayList<Square> availableSquares = new ArrayList<>();
         for (Direction d : availableDirections) {
             Square moving = this.getSquare();
+
             while (true) {
                 moving = moving.getNearbySquare(d, this.getPlayerEnum());
+
                 if (moving != null) {
-                    if (moving.hasPiece()) {
-                        if (moving.getPiece().getPlayerEnum() != this.getPlayerEnum()) {
-                        } else
-                            break;
-                    }
+                    if (moving.hasPiece() && moving.getPiece().getPlayerEnum() == this.getPlayerEnum())
+                        break;
+
                     availableSquares.add(moving);
                 } else
                     break;
@@ -91,18 +93,18 @@ public abstract class Piece {
         ArrayList<Square> protectedSquares = new ArrayList<>();
         for (Direction d : availableDirections) {
             Square moving = this.getSquare();
+
             while (true) {
                 moving = moving.getNearbySquare(d, this.getPlayerEnum());
+
                 if (moving != null) {
-                    if (moving.hasPiece()) {
-                        if (moving.getPiece().getPlayerEnum() == this.getPlayerEnum()) {
+                    if (moving.hasPiece() && moving.getPiece().getPlayerEnum() == this.getPlayerEnum())
                             protectedSquares.add(moving);
-                        }
-                    }
                 } else
                     break;
             }
         }
+
         return protectedSquares;
     }
 

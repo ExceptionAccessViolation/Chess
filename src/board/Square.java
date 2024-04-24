@@ -131,8 +131,6 @@ public class Square extends JPanel implements MouseListener {
                     default:
                         throw new NullPointerException();
                 }
-            default:
-                throw new NullPointerException();
         };
     }
 
@@ -159,14 +157,19 @@ public class Square extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        // If no square is previously selected
         if (ClickHandling.getClicked() == null) {
             ClickHandling.setClicked(this);
             this.setBackground((this.getOriginalColour() == Board.altSquareColour) ?
                     Board.selectedColouredSquareColour : Board.selectedWhiteSquareColour);
-        } else if (ClickHandling.getClicked() == this) {
+        }
+        // If the previously selected square is the same as the currently clicked one
+        else if (ClickHandling.getClicked() == this) {
             this.setBackground(this.getOriginalColour());
-            ClickHandling.setClicked(null);
-        } else {
+            ClickHandling.setClicked(null); // deselect
+        }
+        // If the previously selected square and the newly selected square are different
+        else {
             Piece oldSquarePiece = ClickHandling.getClicked().getPiece();
             if (ClickHandling.getClicked().hasPiece() &&
                     Utils.getPlayerObject(oldSquarePiece.getPlayerEnum()).equals(turn)) {
@@ -184,18 +187,11 @@ public class Square extends JPanel implements MouseListener {
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
+    public void mousePressed(MouseEvent e) {}
     @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
+    public void mouseReleased(MouseEvent e) {}
     @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
+    public void mouseEntered(MouseEvent e) {}
     @Override
-    public void mouseExited(MouseEvent e) {
-    }
+    public void mouseExited(MouseEvent e) {}
 }

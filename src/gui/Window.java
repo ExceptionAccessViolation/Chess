@@ -11,7 +11,7 @@ public class Window extends JFrame {
     public static final int WIDTH = 1000;
     public static final int H_PADDING = WIDTH / 16;
 
-    InfoPanel infoPanel = new InfoPanel();
+    private final InfoPanel infoPanel = new InfoPanel();
 
     public Window() {
         this.setSize(WIDTH, HEIGHT);

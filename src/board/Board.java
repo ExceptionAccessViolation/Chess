@@ -9,11 +9,12 @@ public class Board extends JPanel {
 
     public static final int BOARD_WIDTH = 540;
     public static final int BOARD_HEIGHT = 540;
+
     public static final Color altSquareColour = new Color(89, 147, 93);
     public static final Color selectedWhiteSquareColour = new Color(130, 166, 104);
     public static final Color selectedColouredSquareColour = new Color(54, 116, 61);
 
-    Square[][] boardArray;
+    private final Square[][] boardArray;
 
     public Board(Square[][] boardArray) {
         this.boardArray = boardArray;
@@ -40,10 +41,7 @@ public class Board extends JPanel {
             case 'F' -> boardArray[rank - 1][5];
             case 'G' -> boardArray[rank - 1][6];
             case 'H' -> boardArray[rank - 1][7];
-            default -> {
-//                boardArray[-1][-1];
-                throw new ArrayIndexOutOfBoundsException("Invalid FEN! Details -> File: " + file + ", Rank: " + rank);
-            }
+            default -> throw new ArrayIndexOutOfBoundsException("Invalid FEN! Details -> File: " + file + ", Rank: " + rank);
         };
     }
 }

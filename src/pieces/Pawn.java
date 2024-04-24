@@ -32,6 +32,7 @@ public class Pawn extends Piece {
         Square initialSquare = this.getSquare();
         PlayerEnum player = this.getPlayerEnum();
 
+        // If the pawn is not on the starting rank, it can only move one square
         final int legalMoves = player == PlayerEnum.WHITE ?
                 (this.getSquare().getRank() == 2 ? 2 : 1) : (this.getSquare().getRank() == 7 ? 2 : 1);
 
@@ -50,6 +51,7 @@ public class Pawn extends Piece {
                 initialSquare.getNearbySquare(Direction.NORTHWEST, player) };
         for (Square sq : northwestNortheast) {
             if (sq != null) {
+                // If the piece on the square is not of the same player's, the square can be moved to
                 if (sq.hasPiece() && sq.getPiece().getPlayerEnum() != this.getPlayerEnum())
                     availableSquares.add(sq);
             }

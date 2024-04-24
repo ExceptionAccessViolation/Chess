@@ -27,9 +27,10 @@ public class InfoPanel extends JPanel {
         whiteInfoPanel.setBounds(0, LOWER_EDGE - PANEL_HEIGHT, WIDTH, PANEL_HEIGHT);
         blackInfoPanel.setBounds(0, 0, WIDTH, PANEL_HEIGHT);
 
+        this.setBorder(border);
+
         this.add(whiteInfoPanel);
         this.add(blackInfoPanel);
-        this.setBorder(border);
         this.setVisible(true);
     }
 }

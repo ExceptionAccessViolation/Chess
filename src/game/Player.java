@@ -8,12 +8,13 @@ import java.util.NoSuchElementException;
 public class Player {
     private final ArrayList<Piece> pieces;
     private final ArrayList<Piece> capturedPieces = new ArrayList<>();
-    final PlayerEnum player;
+
+    private final PlayerEnum playerEnum;
     private int material;
 
-    Player(PlayerEnum player, ArrayList<Piece> pieces) {
+    Player(PlayerEnum playerEnum, ArrayList<Piece> pieces) {
         this.pieces = pieces;
-        this.player = player;
+        this.playerEnum = playerEnum;
 
         this.updateMaterial();
     }
@@ -27,18 +28,19 @@ public class Player {
     }
 
     public void deletePiece(Piece piece) {
+        // If the piece is not found in the ArrayList
         if (!pieces.remove(piece))
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("Piece not found!");
         else
             capturedPieces.add(piece);
 
         this.updateMaterial();
-        System.out.println(piece.getName());
     }
 
 
     public void updateMaterial() {
         material = 0;
+
         for (Piece p : pieces) {
             material += p.getValue();
         }
@@ -58,6 +60,6 @@ public class Player {
     }
 
     public PlayerEnum getPlayerEnum() {
-        return player;
+        return playerEnum;
     }
 }

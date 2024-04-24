@@ -12,9 +12,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class PlayerInfoPanel extends JPanel {
-    Image test = Chess.white.getPieces().getFirst().white;
-    ArrayList<Piece> capturedPieces;
-    PlayerEnum playerEnum;
+    private final Image test = Chess.white.getPieces().getFirst().white;
+
+    private final ArrayList<Piece> capturedPieces;
+    private final PlayerEnum playerEnum;
 
     PlayerInfoPanel(PlayerEnum playerEnum) {
         this.playerEnum = playerEnum;
