@@ -62,6 +62,7 @@ public abstract class Piece {
         });
 
         ArrayList<Square> availableSquares = new ArrayList<>();
+
         for (Direction d : availableDirections) {
             Square moving = this.getSquare();
 
@@ -69,8 +70,14 @@ public abstract class Piece {
                 moving = moving.getNearbySquare(d, this.getPlayerEnum());
 
                 if (moving != null) {
-                    if (moving.hasPiece() && moving.getPiece().getPlayerEnum() == this.getPlayerEnum())
-                        break;
+                    if (moving.hasPiece()) {
+                        if (moving.getPiece().getPlayerEnum() == this.getPlayerEnum())
+                            break;
+                        if (moving.getPiece().getPlayerEnum() != this.getPlayerEnum()) {
+                            availableSquares.add(moving);
+                            break;
+                        }
+                    }
 
                     availableSquares.add(moving);
                 } else

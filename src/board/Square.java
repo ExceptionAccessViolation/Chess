@@ -1,8 +1,9 @@
 package board;
 
+import game.Chess;
+import game.PlayerEnum;
 import game.Utils;
 import pieces.Piece;
-import game.PlayerEnum;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,7 +11,8 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import static game.Chess.*;
+import static game.Chess.board;
+import static game.Chess.turn;
 
 public class Square extends JPanel implements MouseListener {
     private final int rank;
@@ -162,6 +164,9 @@ public class Square extends JPanel implements MouseListener {
             ClickHandling.setClicked(this);
             this.setBackground((this.getOriginalColour() == Board.altSquareColour) ?
                     Board.selectedColouredSquareColour : Board.selectedWhiteSquareColour);
+            if (this.hasPiece()) {
+                this.getPiece().getAvailableSquares().forEach(sq -> System.out.print(sq.getCoordinates() + " "));
+            }
         }
         // If the previously selected square is the same as the currently clicked one
         else if (ClickHandling.getClicked() == this) {
@@ -174,7 +179,7 @@ public class Square extends JPanel implements MouseListener {
             if (ClickHandling.getClicked().hasPiece() &&
                     Utils.getPlayerObject(oldSquarePiece.getPlayerEnum()).equals(turn)) {
                 if (oldSquarePiece.move(this))
-                    turn = turn == white ? black : white;
+                    Chess.afterMove(oldSquarePiece, this);
             }
 
             ClickHandling.getClicked().setBackground(ClickHandling.getClicked().getOriginalColour());

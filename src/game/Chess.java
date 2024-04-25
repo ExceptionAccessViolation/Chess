@@ -3,14 +3,17 @@ package game;
 import board.Board;
 import board.Square;
 import gui.Window;
-import pieces.*;
+import pieces.Piece;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class Chess {
+public abstract class Chess {
     public static Square[][] boardArray = new Square[8][8];
     public static Board board;
     public static final String STARTING_POSITION = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+
+    static MoveLogger logger;
 
     public static Player white;
     public static Player black;
@@ -24,11 +27,13 @@ public class Chess {
                 for (int j = boardArray.length - 1; j >= 0; j--) {
                     boardArray[j][i] = new Square(rank, j + 1);
                 }
+
                 rank++;
             }
         }
 
         board = new Board(boardArray);
+        logger = new MoveLogger();
 
         {
             Piece[] pieces = Utils.decodeFen(STARTING_POSITION).toArray(new Piece[0]);
@@ -36,11 +41,10 @@ public class Chess {
             ArrayList<Piece> blackPieces = new ArrayList<>();
 
             for (Piece p : pieces) {
-                if (p.getPlayerEnum() == PlayerEnum.WHITE) {
+                if (p.getPlayerEnum() == PlayerEnum.WHITE)
                     whitePieces.add(p);
-                } else {
+                else
                     blackPieces.add(p);
-                }
             }
 
             white = new Player(PlayerEnum.WHITE, whitePieces);
@@ -50,5 +54,14 @@ public class Chess {
         new Window();
 
         turn = white;
+    }
+
+    // Will be called when a move is made. For updating anything
+    public static void afterMove(Piece moved, Square movedTo) {
+        // Changing turn
+        turn = turn == white ? black : white;
+        try {
+            logger.log(moved, movedTo);
+        } catch (IOException ignored) {}
     }
 }

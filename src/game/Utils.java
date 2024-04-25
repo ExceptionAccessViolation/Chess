@@ -19,7 +19,8 @@ public abstract class Utils {
     }
 
     public static String generateFEN(Square[][] boardArray) {
-        assert boardArray.length == 8 && boardArray[0].length == 8 : new IllegalArgumentException("Length of boardArray is not equal to 8!");
+        assert boardArray.length == 8 && boardArray[0].length == 8 :
+                new IllegalArgumentException("Length of boardArray is not equal to 8!");
 
         StringBuilder fen = new StringBuilder();
 
@@ -88,7 +89,8 @@ public abstract class Utils {
                 pieces.add(piece);
                 file++;
             } else if (Character.isDigit(c)) {
-                emptySquares += (c - '0'); // Subtracting the ASCII value of 0 from c, thus converting it to the raw digit
+                // Subtracting the ASCII value of 0 from c, thus converting it to the raw digit
+                emptySquares += (c - '0');
             } else if (c == '/') {
                 emptySquares = 0;
                 file = 'A';
