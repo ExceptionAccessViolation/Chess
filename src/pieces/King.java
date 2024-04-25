@@ -39,16 +39,17 @@ public class King extends Piece {
             if (nearbySquare != null) {
                 Player opponent = Utils.getPlayerObject(this.getPlayerEnum() == PlayerEnum.WHITE ? PlayerEnum.BLACK : PlayerEnum.WHITE);
 
-                if (nearbySquare.hasPiece() && nearbySquare.getPiece().getPlayerEnum() != this.getPlayerEnum()) {
+                // Commented out because we need to check if piece is protected
+                /*if (nearbySquare.hasPiece() && nearbySquare.getPiece().getPlayerEnum() != this.getPlayerEnum()) {
                         availableSquares.add(nearbySquare);
                         continue;
-                }
+                }*/
 
                 boolean valid = true;
 
                 for (Piece p : opponent.getPieces()) {
                     if (p instanceof Pawn) {
-                        if (((Pawn) p).getCapturableSquares().contains(nearbySquare)) {
+                        if (((Pawn) p).getDiagonalProtectedSquares().contains(nearbySquare)) {
                             valid = false;
                             break;
                         }

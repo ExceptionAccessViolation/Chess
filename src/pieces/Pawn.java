@@ -5,6 +5,7 @@ import board.Square;
 import game.PlayerEnum;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Pawn extends Piece {
     private final int value = 1;
@@ -40,7 +41,7 @@ public class Pawn extends Piece {
 
         if (!aheadSquare.hasPiece()) {
             if (legalMoves == 2 && !twoAheadSquare.hasPiece())
-                    availableSquares.add(twoAheadSquare);
+                availableSquares.add(twoAheadSquare);
 
             availableSquares.add(aheadSquare);
         }
@@ -58,24 +59,15 @@ public class Pawn extends Piece {
         return availableSquares;
     }
 
-    @Override
-    public ArrayList<Square> getProtectedSquares() { // TODO
-        return new ArrayList<>();
-    }
+    public ArrayList<Square> getDiagonalProtectedSquares() {
+        ArrayList<Square> squares = new ArrayList<>();
 
-    public ArrayList<Square> getCapturableSquares() {
-        Square initialSquare = this.getSquare();
-        PlayerEnum player = this.getPlayerEnum();
-        ArrayList<Square> capturableSquares = new ArrayList<>();
-        Square[] northwestNortheast = { initialSquare.getNearbySquare(Direction.NORTHEAST, player),
-                initialSquare.getNearbySquare(Direction.NORTHWEST, player) };
-        for (Square sq : northwestNortheast) {
-            if (sq != null) {
-                if (sq.hasPiece() && sq.getPiece().getPlayerEnum() != this.getPlayerEnum())
-                    capturableSquares.add(sq);
-            }
-        }
-        return capturableSquares;
+        squares.add(this.getSquare().getNearbySquare(Direction.NORTHEAST, this.getPlayerEnum()));
+        squares.add(this.getSquare().getNearbySquare(Direction.NORTHWEST, this.getPlayerEnum()));
+
+        squares.removeIf(Objects::isNull);
+
+        return squares;
     }
 
     @Override

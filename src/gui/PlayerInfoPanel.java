@@ -16,6 +16,7 @@ public class PlayerInfoPanel extends JPanel {
 
     private final ArrayList<Piece> capturedPieces;
     private final PlayerEnum playerEnum;
+    private final Player opponent;
 
     PlayerInfoPanel(PlayerEnum playerEnum) {
         this.playerEnum = playerEnum;
@@ -25,7 +26,7 @@ public class PlayerInfoPanel extends JPanel {
         Border border = BorderFactory.createLineBorder(Color.CYAN, 2, true);
 
         Player player = Utils.getPlayerObject(playerEnum);
-        Player opponent = Utils.getOpponent(player);
+        opponent = Utils.getOpponent(player);
 
         int material = player.getMaterial();
         int opponentMaterial = opponent.getMaterial();
@@ -41,9 +42,14 @@ public class PlayerInfoPanel extends JPanel {
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
 
-        g2D.drawImage(test, 10, 10, 60, 60, null);
-        g2D.drawImage(test, 20, 10, 60, 60, null);
-        g2D.drawImage(test, 30, 10, 60, 60, null);
+//        g2D.drawImage(test, 10, 10, 60, 60, null);
+//        g2D.drawImage(test, 20, 10, 60, 60, null);
+//        g2D.drawImage(test, 30, 10, 60, 60, null);
+
+        for (Piece p : opponent.getCapturedPieces()) {
+            System.out.print(p.getName() + " ");
+            g2D.drawImage(playerEnum == PlayerEnum.WHITE ? p.white : p.black, 10, 10, null);
+        }
     }
 
     private int[] countPieces(ArrayList<Piece> pieces) {
