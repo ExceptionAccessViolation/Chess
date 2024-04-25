@@ -12,6 +12,7 @@ public abstract class Chess {
     public static Square[][] boardArray = new Square[8][8];
     public static Board board;
     public static final String STARTING_POSITION = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+    public static final String fen = "5Rq1/8/4K2k/8/8/8/5rQ1/8";
 
     static MoveLogger logger;
 
@@ -33,10 +34,10 @@ public abstract class Chess {
         }
 
         board = new Board(boardArray);
-        logger = new MoveLogger();
+//        logger = new MoveLogger();
 
         {
-            Piece[] pieces = Utils.decodeFen(STARTING_POSITION).toArray(new Piece[0]);
+            Piece[] pieces = Utils.decodeFen(fen).toArray(new Piece[0]);
             ArrayList<Piece> whitePieces = new ArrayList<>();
             ArrayList<Piece> blackPieces = new ArrayList<>();
 
@@ -60,8 +61,8 @@ public abstract class Chess {
     public static void afterMove(Piece moved, Square movedTo) {
         // Changing turn
         turn = turn == white ? black : white;
-        try {
-            logger.log(moved, movedTo);
-        } catch (IOException ignored) {}
+//        try {
+//            logger.log(moved, movedTo);
+//        } catch (IOException ignored) {}
     }
 }

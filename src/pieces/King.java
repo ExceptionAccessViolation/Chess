@@ -53,7 +53,14 @@ public class King extends Piece {
                             valid = false;
                             break;
                         }
-                    } else if (!(p instanceof King)) {
+                    } else if (p instanceof King) {
+                        for (Direction direction : Direction.values()) {
+                            if (p.getSquare().getNearbySquare(direction, p.getPlayerEnum()) == nearbySquare) {
+                                valid = false;
+                                break;
+                            }
+                        }
+                    } else {
                         if (p.getAvailableSquares().contains(nearbySquare) || p.getProtectedSquares().contains(nearbySquare)) {
                             valid = false;
                             break;
